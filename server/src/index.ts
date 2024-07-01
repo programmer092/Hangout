@@ -1,0 +1,76 @@
+import express, { Request, Response } from "express";
+import { Server, Socket } from "socket.io";
+import http, { createServer } from "http";
+import dotenv from "dotenv";
+import cors from "cors";
+import path from "path";
+import cookieParser from "cookie-parser";
+import router from "./router/chat";
+
+dotenv.config();
+
+interface UserMapSocketId {
+  [userId: string]: string;
+}
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+const port = process.env.PORT as string;
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(cookieParser());
+
+app.use(router);
+
+app.use(
+  "/profilePicture",
+  express.static(
+    path.join(__dirname, "../../client/public/uploads/profileImages/")
+  )
+);
+
+app.use(
+  "/files",
+  express.static(path.join(__dirname, "../../client/public/uploads/messages/"))
+);
+
+server.listen(port, () => {
+  console.log(`Server is up at: http://localhost:${port}`);
+});
+
+export const getSocketId = (receiver: string): string | undefined => {
+  return UserMapSocketId[receiver];
+};
+
+const UserMapSocketId: UserMapSocketId = {};
+
+io.on("connection", (socket: Socket) => {
+  console.log(socket.id, "connected");
+  //reads the userID passed from the frontend and assign the socket id to it.
+  const userId: string = socket.handshake.query.userId as string;
+  if (userId != "undefined") UserMapSocketId[userId] = socket.id;
+
+  //emit the event that only send the UsersId not socketid.
+  io.emit("OnlineUsers", Object.keys(UserMapSocketId));
+
+  //on disconnect the userid is deleted from the UserMapSocketId and sends updated OnlineUsers event.
+  socket.on("disconnect", () => {
+    delete UserMapSocketId[userId];
+    io.emit("OnlineUsers", Object.keys(UserMapSocketId));
+  });
+});
+
+export { io };
