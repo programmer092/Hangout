@@ -7,10 +7,12 @@ import React, {
 } from "react";
 import { UseAuthContext } from "./authUser";
 import { io, Socket } from "socket.io-client";
+import { baseURL } from "../assets/utils/baseURL";
 
 interface SocketContextType {
   socket: Socket | null;
   onlineUsers: string[];
+  ID: (id: string) => void;
 }
 
 interface SocketContextProviderProps {
@@ -38,7 +40,7 @@ export const SocketContextProvider: React.FC<SocketContextProviderProps> = ({
   //listening the OnlineUsers event
   useEffect(() => {
     if (authUser) {
-      const socket = io("http://localhost:3000", {
+      const socket = io(`${baseURL}`, {
         query: {
           userId: authUser._id,
         },
@@ -49,6 +51,8 @@ export const SocketContextProvider: React.FC<SocketContextProviderProps> = ({
       socket.on("OnlineUsers", (users: string[]) => {
         setOnlineUsers(users);
       });
+
+      //   const Id = socket.emit("getSocketIdbyUserId", authUser._id);
 
       return () => {
         socket.close();
@@ -62,8 +66,20 @@ export const SocketContextProvider: React.FC<SocketContextProviderProps> = ({
     }
   }, [authUser]);
 
+  const ID = (id: string) => {
+    if (socket) {
+      socket.emit("getSocketIdByUserId", id, (socketId: string | null) => {
+        if (socketId) {
+          return socketId;
+        } else {
+          console.error("User is not online");
+        }
+      });
+    }
+  };
+
   return (
-    <SocketContext.Provider value={{ socket, onlineUsers }}>
+    <SocketContext.Provider value={{ socket, onlineUsers, ID }}>
       {children}
     </SocketContext.Provider>
   );

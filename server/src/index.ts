@@ -66,6 +66,23 @@ io.on("connection", (socket: Socket) => {
   //emit the event that only send the UsersId not socketid.
   io.emit("OnlineUsers", Object.keys(UserMapSocketId));
 
+  socket.on("calluser", ({ userToCall, signalData, from, name }) => {
+    io.to(userToCall).emit("calluser", { signal: signalData, from, name });
+  });
+
+  socket.on("answercall", (data) => {
+    io.to(data.to).emit("callaccepted", data.signal);
+  });
+
+  // Event to get the socket id of a user by their MongoDB user ID
+  socket.on(
+    "getSocketIdByUserId",
+    (userId: string, callback: (socketId: string | null) => void) => {
+      const socketId = UserMapSocketId[userId];
+      callback(socketId || null);
+    }
+  );
+
   //on disconnect the userid is deleted from the UserMapSocketId and sends updated OnlineUsers event.
   socket.on("disconnect", () => {
     delete UserMapSocketId[userId];

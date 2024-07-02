@@ -2,6 +2,7 @@ import useConversation from "../zustand/useConversation";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { baseURL } from "../assets/utils/baseURL";
 
 const useSendMessage = () => {
   const [loading, setloading] = useState(false);
@@ -20,7 +21,7 @@ const useSendMessage = () => {
       }
       const response = await axios({
         method: "post",
-        url: `http://localhost:3000/chat/sendMessage/${selectedConversation._id}`,
+        url: `${baseURL}/chat/sendMessage/${selectedConversation._id}`,
         data: formData,
         withCredentials: true,
         headers: {

@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import axios from "axios";
 import { UseAuthContext } from "../context/authUser";
+import { baseURL } from "../assets/utils/baseURL";
 
 interface AxiosError {
   response?: {
@@ -12,7 +13,7 @@ export default function useLogout() {
   const { setauthUser } = UseAuthContext();
   const logout = async () => {
     try {
-      const result = await axios.post("http://localhost:3000/chat/logout");
+      const result = await axios.post(`${baseURL}/chat/logout`);
       if (result.status == 200) {
         localStorage.removeItem("user");
         setauthUser(null);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UseAuthContext } from "../context/authUser";
+import { baseURL } from "../assets/utils/baseURL";
 
 const useProfileUpload = () => {
   const { setauthUser } = UseAuthContext();
@@ -10,7 +11,7 @@ const useProfileUpload = () => {
       formData.append("avatar", file);
 
       const response = await axios.post(
-        "http://localhost:3000/chat/uploadProfile",
+        `${baseURL}/chat/uploadProfile`,
         formData,
         {
           headers: {

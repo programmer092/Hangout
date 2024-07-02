@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
+import { baseURL } from "../assets/utils/baseURL";
 
 const useGetMessage = () => {
   const [loading, setloading] = useState(false);
@@ -15,7 +16,7 @@ const useGetMessage = () => {
       try {
         setloading(true);
         const response = await axios.get(
-          `http://localhost:3000/chat/getMessage/${selectedConversation._id}`,
+          `${baseURL}/chat/getMessage/${selectedConversation._id}`,
           {
             withCredentials: true,
           }

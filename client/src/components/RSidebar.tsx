@@ -4,6 +4,7 @@ import useLogout from "../hooks/useLogout";
 import Avatar from "react-avatar";
 import toast from "react-hot-toast";
 import useProfileUpload from "../hooks/useProfileUpload";
+import { baseURL } from "../assets/utils/baseURL";
 
 export default function RSideBar() {
   const [file, setFile] = useState<File | null>(null);
@@ -42,7 +43,7 @@ export default function RSideBar() {
               <Avatar
                 src={
                   authUser && authUser.profileImg
-                    ? `http://localhost:3000${authUser.profileImg}`
+                    ? `${baseURL}${authUser.profileImg}`
                     : undefined
                 }
                 name={authUser?.name || ""}

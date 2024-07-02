@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { baseURL } from "../assets/utils/baseURL";
 
 const useGetAllUsers = () => {
   const [allusers, setallusers] = useState([]);
@@ -7,7 +8,7 @@ const useGetAllUsers = () => {
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/chat/alluser", {
+        const response = await axios.get(`${baseURL}/chat/alluser`, {
           withCredentials: true,
         });
         if (!response) {

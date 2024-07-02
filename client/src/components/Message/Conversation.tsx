@@ -3,6 +3,7 @@ import { extractTime } from "../../assets/utils/time";
 import Avatar from "react-avatar";
 import useConversation, { Message } from "../../zustand/useConversation";
 import { useState } from "react";
+import { baseURL } from "../../assets/utils/baseURL";
 
 export default function ConversationDisplay({ message }: { message: Message }) {
   const { authUser } = UseAuthContext();
@@ -33,10 +34,10 @@ export default function ConversationDisplay({ message }: { message: Message }) {
               src={
                 Iamsender
                   ? authUser?.profileImg
-                    ? `http://localhost:3000${authUser.profileImg}`
+                    ? `${baseURL}${authUser.profileImg}`
                     : undefined
                   : selectedConversation?.profileImg
-                  ? `http://localhost:3000${selectedConversation.profileImg}`
+                  ? `${baseURL}${selectedConversation.profileImg}`
                   : undefined
               }
               name={Iamsender ? authUser?.name : selectedConversation?.name}
@@ -50,12 +51,10 @@ export default function ConversationDisplay({ message }: { message: Message }) {
             <div className="flex flex-col">
               <div
                 className="w-32 h-32 sm:w-52 sm:h-52"
-                onClick={() =>
-                  openModal(`http://localhost:3000${message.file}`)
-                }
+                onClick={() => openModal(`${baseURL}${message.file}`)}
               >
                 <Avatar
-                  src={`http://localhost:3000${message.file}`}
+                  src={`${baseURL}${message.file}`}
                   size="100%"
                   round="10px"
                 />
@@ -75,10 +74,10 @@ export default function ConversationDisplay({ message }: { message: Message }) {
           {message.file !== null && message.message === null && (
             <div
               className="w-32 h-32 sm:w-52 sm:h-52"
-              onClick={() => openModal(`http://localhost:3000${message.file}`)}
+              onClick={() => openModal(`${baseURL}${message.file}`)}
             >
               <Avatar
-                src={`http://localhost:3000${message.file}`}
+                src={`${baseURL}${message.file}`}
                 size="100%"
                 round="10px"
               />
@@ -94,7 +93,7 @@ export default function ConversationDisplay({ message }: { message: Message }) {
             <img
               src={imagePreview!}
               alt="Preview"
-              className="w-full h-full"
+              className="h-auto w-auto max-w-full max-h-full"
               sizes="100%"
             />
             <button

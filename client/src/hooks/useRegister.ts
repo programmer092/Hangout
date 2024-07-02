@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { UseAuthContext } from "../context/authUser";
 import { useState } from "react";
+import { baseURL } from "../assets/utils/baseURL";
 interface User {
   name: string;
   email: string;
@@ -16,7 +17,7 @@ function useRegister() {
       setloading(true);
       const result = await axios({
         method: "post",
-        url: "http://localhost:3000/chat/register",
+        url: `${baseURL}/chat/register`,
         data: {
           name: user.name,
           email: user.email,

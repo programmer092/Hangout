@@ -5,6 +5,7 @@ import { useState } from "react";
 import useSearch from "../hooks/useSearch";
 import { toast } from "react-hot-toast";
 import { UseSocketContext } from "../context/Socket";
+import { baseURL } from "../assets/utils/baseURL";
 
 interface User {
   _id: string;
@@ -115,7 +116,7 @@ export default function LSideBar() {
                     <Avatar
                       src={
                         user?.profileImg
-                          ? `http://localhost:3000${user.profileImg}`
+                          ? `${baseURL}${user.profileImg}`
                           : undefined
                       }
                       name={user.name}
@@ -170,7 +171,7 @@ export default function LSideBar() {
                   <Avatar
                     src={
                       user?.profileImg
-                        ? `http://localhost:3000${user.profileImg}`
+                        ? `${baseURL}${user.profileImg}`
                         : undefined
                     }
                     name={user.name}

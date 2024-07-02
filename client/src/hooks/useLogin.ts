@@ -2,6 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { UseAuthContext } from "../context/authUser";
 import { useState } from "react";
+import { baseURL } from "../assets/utils/baseURL";
 
 export interface AxiosError {
   response?: {
@@ -21,7 +22,7 @@ function useLogin() {
       setloading(true);
 
       const result = await axios.post(
-        "http://localhost:3000/chat/login",
+        `${baseURL}/chat/login`,
         {
           email: email,
           password: password,
