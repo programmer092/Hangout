@@ -8,4 +8,4 @@ const uri = process.env.URL as string;
 mongoose
   .connect(uri)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((e) => console.log(e));
+  .catch((e: string) => console.log(e));

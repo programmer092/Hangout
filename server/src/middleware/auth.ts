@@ -5,6 +5,9 @@ import "../router/chat";
 import dotenv from "dotenv";
 
 export interface InfoRequest extends Request {
+  body: any;
+  file?: Express.Multer.File;
+  params: { id: string };
   userInfo?: Duser;
 }
 
