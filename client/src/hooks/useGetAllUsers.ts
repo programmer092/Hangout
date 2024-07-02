@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../assets/utils/baseURL";
+import toast from "react-hot-toast";
 
 const useGetAllUsers = () => {
   const [allusers, setallusers] = useState([]);
@@ -16,7 +17,7 @@ const useGetAllUsers = () => {
         }
         setallusers(response.data);
       } catch (error) {
-        console.log(error);
+        toast.error("Couldn't get the data!");
       }
     };
 

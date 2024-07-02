@@ -1,8 +1,8 @@
 import { create } from "zustand";
 export interface IConversation {
-  selectedConversation: Conversation | null; // Update the type to allow null
+  selectedConversation: Conversation | null; 
   setSelectedConversation: (
-    selectedConversation: Conversation | null // Update the type to allow null
+    selectedConversation: Conversation | null 
   ) => void;
   messages: Message[];
   setMessages: (messages: Message[]) => void;
