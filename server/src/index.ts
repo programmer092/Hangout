@@ -17,7 +17,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://hangout-lcgo.onrender.com"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -26,7 +26,7 @@ const io = new Server(server, {
 const port = process.env.PORT as string;
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://hangout-lcgo.onrender.com"],
     credentials: true,
   })
 );
