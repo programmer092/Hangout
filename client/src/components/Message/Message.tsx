@@ -5,7 +5,6 @@ import MessageInput from "./MessageInput";
 import { useEffect } from "react";
 import HeaderForLargeScreen from "./HeaderLarger";
 import HeaderForSmallScreen from "./HeaderSmall";
-import { baseURL } from "../../assets/utils/baseURL";
 
 export default function Messsage() {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -64,7 +63,7 @@ export default function Messsage() {
                 name={selectedConversation?.name}
                 src={
                   selectedConversation?.profileImg
-                    ? `${baseURL}${selectedConversation.profileImg}`
+                    ? `${selectedConversation.profileImg}`
                     : undefined
                 }
                 size="90"

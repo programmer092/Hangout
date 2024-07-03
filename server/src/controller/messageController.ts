@@ -21,7 +21,7 @@ export const sendMessage = async (req: InfoRequest, res: Response) => {
     let fileUrl: string | null = null;
 
     if (filesend) {
-      fileUrl = `/files/${filesend.filename}`;
+      fileUrl = filesend.path;
     }
 
     const isReceiver = await User.findById(receiver);

@@ -46,18 +46,6 @@ app.use(cookieParser());
 
 app.use(router);
 
-app.use(
-  "/profilePicture",
-  express.static(
-    path.join(__dirname, "../../client/public/uploads/profileImages/")
-  )
-);
-
-app.use(
-  "/files",
-  express.static(path.join(__dirname, "../../client/public/uploads/messages/"))
-);
-
 server.listen(port, () => {
   console.log(`Server is up at: http://localhost:${port}`);
 });

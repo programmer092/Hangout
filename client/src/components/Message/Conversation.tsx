@@ -3,7 +3,6 @@ import { extractTime } from "../../assets/utils/time";
 import Avatar from "react-avatar";
 import useConversation, { Message } from "../../zustand/useConversation";
 import { useState } from "react";
-import { baseURL } from "../../assets/utils/baseURL";
 
 export default function ConversationDisplay({ message }: { message: Message }) {
   const { authUser } = UseAuthContext();
@@ -34,10 +33,10 @@ export default function ConversationDisplay({ message }: { message: Message }) {
               src={
                 Iamsender
                   ? authUser?.profileImg
-                    ? `${baseURL}${authUser.profileImg}`
+                    ? `${authUser.profileImg}`
                     : undefined
                   : selectedConversation?.profileImg
-                  ? `${baseURL}${selectedConversation.profileImg}`
+                  ? `${selectedConversation.profileImg}`
                   : undefined
               }
               name={Iamsender ? authUser?.name : selectedConversation?.name}
@@ -51,13 +50,9 @@ export default function ConversationDisplay({ message }: { message: Message }) {
             <div className="flex flex-col">
               <div
                 className="w-32 h-32 sm:w-52 sm:h-52"
-                onClick={() => openModal(`${baseURL}${message.file}`)}
+                onClick={() => openModal(`${message.file}`)}
               >
-                <Avatar
-                  src={`${baseURL}${message.file}`}
-                  size="100%"
-                  round="10px"
-                />
+                <Avatar src={`${message.file}`} size="100%" round="10px" />
               </div>
               <div className="max-w-32 text-black sm:max-w-52">
                 {message.message}
@@ -74,13 +69,9 @@ export default function ConversationDisplay({ message }: { message: Message }) {
           {message.file !== null && message.message === null && (
             <div
               className="w-32 h-32 sm:w-52 sm:h-52"
-              onClick={() => openModal(`${baseURL}${message.file}`)}
+              onClick={() => openModal(`${message.file}`)}
             >
-              <Avatar
-                src={`${baseURL}${message.file}`}
-                size="100%"
-                round="10px"
-              />
+              <Avatar src={`${message.file}`} size="100%" round="10px" />
             </div>
           )}
         </div>

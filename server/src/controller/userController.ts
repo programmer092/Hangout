@@ -2,6 +2,13 @@ import express, { Request, Response } from "express";
 import { InfoRequest } from "../middleware/auth";
 import User from "../model/userSchema";
 import auth from "../middleware/auth";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -61,7 +68,7 @@ export const profileUpload = async (req: InfoRequest, res: Response) => {
   const user = req.userInfo?._id;
   await User.findByIdAndUpdate(
     user,
-    { profileImg: `/profilePicture/${Imgfile.filename}` },
+    { profileImg: Imgfile.path },
     { new: true }
   );
 

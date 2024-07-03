@@ -5,7 +5,6 @@ import { useState } from "react";
 import useSearch from "../hooks/useSearch";
 import { toast } from "react-hot-toast";
 import { UseSocketContext } from "../context/Socket";
-import { baseURL } from "../assets/utils/baseURL";
 
 interface User {
   _id: string;
@@ -114,11 +113,7 @@ export default function LSideBar() {
                 <div className="flex flex-col items-center relative pr-3">
                   <div className="relative">
                     <Avatar
-                      src={
-                        user?.profileImg
-                          ? `${baseURL}${user.profileImg}`
-                          : undefined
-                      }
+                      src={user?.profileImg ? `${user.profileImg}` : undefined}
                       name={user.name}
                       round
                       style={{
@@ -169,11 +164,7 @@ export default function LSideBar() {
               <div className="flex items-center pr-2 pb-2">
                 <div className="relative">
                   <Avatar
-                    src={
-                      user?.profileImg
-                        ? `${baseURL}${user.profileImg}`
-                        : undefined
-                    }
+                    src={user?.profileImg ? `${user.profileImg}` : undefined}
                     name={user.name}
                     round
                     style={{
