@@ -53,14 +53,6 @@ app.use(cookieParser());
 
 app.use(router);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../../client/build")));
-
-  app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
-  });
-}
-
 server.listen(port, () => {
   console.log(`Server is up at: http://localhost:${port}`);
 });
