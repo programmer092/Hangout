@@ -1,9 +1,6 @@
 import express from "express";
-import multer from "multer";
-import User from "../model/userSchema";
 import auth from "../middleware/auth";
-import path from "path";
-import { userInfo } from "os";
+
 import {
   login,
   register,

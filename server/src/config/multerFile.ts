@@ -5,7 +5,7 @@ import { Request } from "express";
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: async (req, file) => {
+  params: async (req: Request, file: Express.Multer.File) => {
     return {
       folder: "hangout/messageFiles",
       format: file.mimetype.split("/")[1],

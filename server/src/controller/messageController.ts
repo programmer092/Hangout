@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { InfoRequest } from "../middleware/auth";
 import User from "../model/userSchema";
 import Message from "../model/messageSchema";

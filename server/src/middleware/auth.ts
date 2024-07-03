@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import User, { Duser } from "../model/userSchema";
 import jwt from "jsonwebtoken";
 import "../router/chat";
@@ -8,6 +8,7 @@ export interface InfoRequest extends Request {
   body: any;
   file?: Express.Multer.File;
   params: { id: string };
+  cookies: { authToken: string };
   userInfo?: Duser;
 }
 
