@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./server/
+    container_name: backend_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app/backend/
+    depends_on:
+      - db
+
+    environment:
+      - URL=${URL}
+      - SecretKey=${SecretKey}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - CLOUDINARY_URL=${CLOUDINARY_URL}
+
+  db:
+    image: mongo:latest
+    container_name: db_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
